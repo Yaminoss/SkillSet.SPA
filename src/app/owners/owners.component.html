@@ -1,0 +1,57 @@
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <h1 class="h1 text-center my-4"> Owners List </h1>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Provinces</mat-label>
+          <mat-select [formControl]="codes" multiple>
+            <mat-option (click)="slectCode(province.code)" *ngFor="let province of provinces" [value]="province.code">
+              {{province.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mat-elevation-z8" *ngIf="!isLoading">
+        <table mat-table [dataSource]="datasource">
+          <!-- id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- firstName Column -->
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> firstName </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+          </ng-container>
+
+          <!-- lastName Column -->
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> lastName </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+          </ng-container>
+
+          <!-- dateOfBirth Column -->
+          <ng-container matColumnDef="dateOfBirth">
+            <th mat-header-cell *matHeaderCellDef> dateOfBirth </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateOfBirth}} </td>
+          </ng-container>
+
+          <!-- address Column -->
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> address </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [length]="length" [pageIndex]="currentPage" [pageSize]="10"
+          (page)="changePage($event)">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
